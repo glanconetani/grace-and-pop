@@ -1,0 +1,35 @@
+10/19/2016
+Chapter 7
+
+Psuedo-ops: (google later)
+	1  .org opnd=address
+	2* .fill opnd=num
+	3* .blkw opnd=num -assigns memory three variables
+	4* .stringz opnd="characters" -generally ascii, allocates and initializes n+1 words in memory
+	5  .end -ends program?
+    *can be given label
+
+Labels:
+    -can be used in code anywhere with the PCOffset
+  Traps:
+    HALT=
+    IN= 	prints prompt on display, accepts character, echos, stores ASCII code in R0[7:0]
+    OUT=	prints whatever is in R0[7:0]
+    GETC=	reads character typed and simply puts in R0[7:0]
+    PUTS=	prints the string, must have first address of string in R0[7:0]
+
+Example Problem:
+ 1.    sorting algorithms
+	first flowchart
+ 2. given a null term array of nummbers starting at x3200
+    must swag numbers in [15:8] and [7:0]
+	x3200	xA012		
+	x3201	x6704
+	x3202	x2932	->
+	x3203	x0041
+	x3204	x0000
+    for lab: x[68](24) [score](ID)
+    ways to switch
+	1. add xFF01
+	2. add to itself
+	3. but must also add a 1 if the bit dropped is a 1
