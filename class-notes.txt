@@ -34,3 +34,54 @@ Example Problem:
 	2. add to itself
 	3. but must also add a 1 if the bit dropped is a 1
 	4. can do this with conditional branch!!
+
+
+10/24/2016
+Chapter 9
+
+Trap Codes:
+	1. TRAP x25: HALT
+	2. TRAP x23: IN
+	3. TRAP x22: PUTS
+	4. TRAP x21: OUT
+	5. TRAP x20: GETC
+   - service routine written for the user
+     code can be changed, causes a huge mess
+
+  TRAP x21 : OUT
+   - whatever is in R0[7:0] is interpretted as ASCII and printed on screen
+
+	.ORIG	x3000
+	LD	R0, NUMBER
+	OUT			;this code will print x35 ASCII
+	HALT			 character on the console
+
+NUMBER  .FILL  x35
+
+Example Problem:
+We want to store 10 decimal numbers that the user inputs into an array at mem[BINARY]
+into 
+
+	LEA	R0, PROMPT
+	PUTS
+	LD	R0, NEWLINE
+	OUT
+
+	.ORIG	x3000
+	LEA	R1, BINARY
+	LEA	R2, NEGTEN
+
+START	IN
+	ADD	R3, R0, NEG30
+	STR	R3, R1
+	ADD	R1, R1, #1	;
+	ADD	R2, R2, #1
+	BRN	START
+
+PROMPT	.STRINGZ   "Input a decimal number everytime it prompts"
+NEWLINE	.FILL	x0A
+MEMSTRT	.FILL	BINARY	
+NEGTEN	.FILL	x-10
+NEG30	.FILL	x-30
+BINARY	.BLKW	x4000
+
